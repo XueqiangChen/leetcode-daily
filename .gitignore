@@ -26,3 +26,5 @@ nbdist/
 /bin/
 
 target
+
+leetcode/editor/en/all.json
