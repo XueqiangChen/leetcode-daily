@@ -47,7 +47,6 @@ package leetcode.editor.en;
 // 
 // Related Topics String Stack
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -76,24 +75,20 @@ public class ValidParentheses {
             map.put("[", "]");
             map.put("{", "}");
 
-            char[] chars = s.toCharArray();
-            ArrayList<String> arrayList = new ArrayList<>();
-            for (char c : chars) {
-                arrayList.add(String.valueOf(c));
-            }
-
             Stack<String> stack = new Stack<>();
-            for (String str : arrayList) {
+            char[] chars = s.toCharArray();
+            for (char c : chars) {
+                String str = String.valueOf(c);
                 if (!stack.isEmpty()) {
-                    if (map.get(stack.peek()) == null) {
+                    if (map.get(stack.peek()) == null) { // 左边是 ")", "]", "}"的情况
                         return false;
-                    } else if (map.get(stack.peek()).equals(str)) {
+                    } else if (map.get(stack.peek()).equals(str)) { // 括号映射关系匹配
                         stack.pop();
                         continue;
                     }
                 }
 
-                stack.push(str);//]
+                stack.push(str);
             }
 
             return stack.isEmpty();
@@ -101,4 +96,52 @@ public class ValidParentheses {
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
+    /**
+     * // 官方答案：栈
+     *
+     * class Solution {
+     *
+     *   // Hash table that takes care of the mappings.
+     *   private HashMap<Character, Character> mappings;
+     *
+     *   // Initialize hash map with mappings. This simply makes the code easier to read.
+     *   public Solution() {
+     *     this.mappings = new HashMap<Character, Character>();
+     *     this.mappings.put(')', '(');
+     *     this.mappings.put('}', '{');
+     *     this.mappings.put(']', '[');
+     *   }
+     *
+     *   public boolean isValid(String s) {
+     *
+     *     // Initialize a stack to be used in the algorithm.
+     *     Stack<Character> stack = new Stack<Character>();
+     *
+     *     for (int i = 0; i < s.length(); i++) {
+     *       char c = s.charAt(i);
+     *
+     *       // If the current character is a closing bracket.
+     *       if (this.mappings.containsKey(c)) {
+     *
+     *         // Get the top element of the stack. If the stack is empty, set a dummy value of '#'
+     *         char topElement = stack.empty() ? '#' : stack.pop();
+     *
+     *         // If the mapping for this bracket doesn't match the stack's top element, return false.
+     *         if (topElement != this.mappings.get(c)) {
+     *           return false;
+     *         }
+     *       } else {
+     *         // If it was an opening bracket, push to the stack.
+     *         stack.push(c);
+     *       }
+     *     }
+     *
+     *     // If the stack still contains elements, then it is an invalid expression.
+     *     return stack.isEmpty();
+     *   }
+     * }
+     *
+     * 作者：LeetCode
+     * 链接：https://leetcode-cn.com/problems/valid-parentheses/solution/you-xiao-de-gua-hao-by-leetcode/
+     */
 }
