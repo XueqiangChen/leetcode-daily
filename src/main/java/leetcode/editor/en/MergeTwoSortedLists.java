@@ -9,7 +9,7 @@ package leetcode.editor.en;
 // 
 // Related Topics Linked List
 
-import leetcode.editor.datastructure.ListNode;
+import leetcode.editor.datastructure.Node;
 
 public class MergeTwoSortedLists{
   public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class MergeTwoSortedLists{
  * }
  */
 class Solution {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    public Node mergeTwoLists(Node l1, Node l2) {
         return null;
     }
 }
