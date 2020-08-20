@@ -1,5 +1,6 @@
 package leetcode.editor.datastructure.queue;
 
+import java.util.PriorityQueue;
 import java.util.stream.IntStream;
 
 public class QueueTest {
@@ -14,5 +15,7 @@ public class QueueTest {
         LinkedQueue<Integer> linkedQueue = new LinkedQueue<>();
         IntStream.rangeClosed(1, 8).forEach(linkedQueue::add);
         IntStream.rangeClosed(1, 8).forEach(i -> System.out.println(linkedQueue.delete()));
+
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
     }
 }

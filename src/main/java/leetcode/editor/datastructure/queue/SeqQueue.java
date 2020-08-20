@@ -35,7 +35,7 @@ public class SeqQueue<T> implements Queue<T>, Serializable {
     }
 
     public boolean isEmpty() {
-        return this.elementData.length == 0;
+        return this.front == this.rear;
     }
 
     public T delete() {
