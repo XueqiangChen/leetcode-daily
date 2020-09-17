@@ -63,20 +63,19 @@ public class UniqueBinarySearchTreesIi {
     class Solution {
         public List<TreeNode> generateTrees(int n) {
             // 0 <= n <= 8
-            if (n > 8 || n < 0) {
+            if (n == 0) {
                 return new ArrayList<>();
             }
-            //[
-            //  [1,null,3,2],
-            //  [3,2,null,1],
-            //  [3,1,null,null,2],
-            //  [2,1,3],
-            //  [1,null,2,null,3]
-            //]
 
+            List<TreeNode> answers = new ArrayList<>();
+            // 从1—n选择枚举出所有的数字，作为根结点，假设此时根结点的值为i，则
+            // 左子树的取值为 1~i-1,右子树的取值为i+1~n
+            // 那么，利用递归算法，每次从左右子树中取出一个值，不断做。
+            // 最后，
 
             return null;
         }
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
