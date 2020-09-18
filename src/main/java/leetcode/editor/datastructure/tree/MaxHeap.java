@@ -2,115 +2,9 @@ package leetcode.editor.datastructure.tree;
 
 public class MaxHeap extends Heap {
 
-    /*typedef struct HNode *Heap; *//* 堆的类型定义 *//*
-    struct HNode {
-        ElementType *Data; *//* 存储元素的数组 *//*
-        int Size;          *//* 堆中当前元素个数 *//*
-        int Capacity;      *//* 堆的最大容量 *//*
-    };
-    typedef Heap MaxHeap; *//* 最大堆 *//*
-    typedef Heap MinHeap; *//* 最小堆 *//*
-
-#define MAXDATA 1000  *//* 该值应根据具体情况定义为大于堆中所有可能元素的值 *//*
-
-    MaxHeap CreateHeap( int MaxSize )
-    { *//* 创建容量为MaxSize的空的最大堆 *//*
-
-        MaxHeap H = (MaxHeap)malloc(sizeof(struct HNode));
-        H->Data = (ElementType *)malloc((MaxSize+1)*sizeof(ElementType));
-        H->Size = 0;
-        H->Capacity = MaxSize;
-        H->Data[0] = MAXDATA; *//* 定义"哨兵"为大于堆中所有可能元素的值*//*
-
-        return H;
-    }
-
-    bool IsFull( MaxHeap H )
-    {
-        return (H->Size == H->Capacity);
-    }
-
-    bool Insert( MaxHeap H, ElementType X )
-    { *//* 将元素X插入最大堆H，其中H->Data[0]已经定义为哨兵 *//*
-        int i;
-
-        if ( IsFull(H) ) {
-            printf("最大堆已满");
-            return false;
-        }
-        i = ++H->Size; *//* i指向插入后堆中的最后一个元素的位置 *//*
-        for ( ; H->Data[i/2] < X; i/=2 )
-            H->Data[i] = H->Data[i/2]; *//* 上滤X *//*
-        H->Data[i] = X; *//* 将X插入 *//*
-        return true;
-    }
-
-#define ERROR -1 *//* 错误标识应根据具体情况定义为堆中不可能出现的元素值 *//*
-
-    bool IsEmpty( MaxHeap H )
-    {
-        return (H->Size == 0);
-    }
-
-    ElementType DeleteMax( MaxHeap H )
-    { *//* 从最大堆H中取出键值为最大的元素，并删除一个结点 *//*
-        int Parent, Child;
-        ElementType MaxItem, X;
-
-        if ( IsEmpty(H) ) {
-            printf("最大堆已为空");
-            return ERROR;
-        }
-
-        MaxItem = H->Data[1]; *//* 取出根结点存放的最大值 *//*
-     *//* 用最大堆中最后一个元素从根结点开始向上过滤下层结点 *//*
-        X = H->Data[H->Size--]; *//* 注意当前堆的规模要减小 *//*
-        for( Parent=1; Parent*2<=H->Size; Parent=Child ) {
-            Child = Parent * 2;
-            if( (Child!=H->Size) && (H->Data[Child]<H->Data[Child+1]) )
-                Child++;  *//* Child指向左右子结点的较大者 *//*
-            if( X >= H->Data[Child] ) break; *//* 找到了合适位置 *//*
-            else  *//* 下滤X *//*
-                H->Data[Parent] = H->Data[Child];
-        }
-        H->Data[Parent] = X;
-
-        return MaxItem;
-    }
-
-    *//*----------- 建造最大堆 -----------*//*
-    void PercDown( MaxHeap H, int p )
-    { *//* 下滤：将H中以H->Data[p]为根的子堆调整为最大堆 *//*
-        int Parent, Child;
-        ElementType X;
-
-        X = H->Data[p]; *//* 取出根结点存放的值 *//*
-        for( Parent=p; Parent*2<=H->Size; Parent=Child ) {
-            Child = Parent * 2;
-            if( (Child!=H->Size) && (H->Data[Child]<H->Data[Child+1]) )
-                Child++;  *//* Child指向左右子结点的较大者 *//*
-            if( X >= H->Data[Child] ) break; *//* 找到了合适位置 *//*
-            else  *//* 下滤X *//*
-                H->Data[Parent] = H->Data[Child];
-        }
-        H->Data[Parent] = X;
-    }
-
-    void BuildHeap( MaxHeap H )
-    { *//* 调整H->Data[]中的元素，使满足最大堆的有序性  *//*
-     *//* 这里假设所有H->Size个元素已经存在H->Data[]中 *//*
-
-        int i;
-
-        *//* 从最后一个结点的父节点开始，到根结点1 *//*
-        for( i = H->Size/2; i>0; i-- )
-            PercDown( H, i );
-    }*/
-
     public MaxHeap(int maxSize) {
         super(maxSize);
     }
-
 
     public boolean insert(int element) {
         // 将元素X插入最大堆H，其中H->Data[0]已经定义为哨兵
@@ -122,39 +16,66 @@ public class MaxHeap extends Heap {
         }
         i = ++this.size; // i指向插入后堆中的最后一个元素的位置
         for (; this.data[i / 2] < element; i /= 2) {
-            data[i] = data[i / 2]; // 上滤X
+            data[i] = data[i / 2]; // 向下过滤结点，对调父结点的位置
         }
         data[i] = element; // 将X插入
         return true;
     }
 
-    //*----------- 建造最大堆 -----------*//*
-    void preDown(MaxHeap H, int p) {
-        //* 下滤：将H中以H->Data[p]为根的子堆调整为最大堆 *//*
+    public int deleteMax() {
+        // 从最大堆中取出键值为最大的元素，并删除一个结点
         int parent, child;
-        int X;
+        int maxItem, temp;//maxItem-堆顶元素，temp-临时变量
+        if (isEmpty()) {
+            System.out.println("最大堆已经为空");
+            return -1;
+        }
 
-        X = data[p]; //* 取出根结点存放的值 *//*
-        for (parent = p; parent * 2 <= size; parent = child) {
+        maxItem = this.data[1];//取出根结点最大值
+        // 用最大堆中的最后一个元素从根结点开始向上过滤下层结点
+        temp = this.data[this.size--];
+        for (parent = 1; parent * 2 < this.size; parent = child) {
+            child = parent * 2; // 左儿子的位置
+            if (child != this.size && this.data[child] < this.data[child + 1]) {
+                child++; //child 指向左右结点的较大者
+            }
+            if (temp > this.data[child]) {//找到位置了
+                break;
+            } else {//将子结点与父节点对换
+                this.data[parent] = this.data[child];
+            }
+        }
+        this.data[parent] = temp;
+        return maxItem;
+    }
+
+    //*----------- 建造最大堆 -----------*//*
+    private void preDown(int p) {
+        //* 下滤：将H中以Data[p]为根的子堆调整为最大堆 *//*
+        int parent, child;
+        int temp;
+
+        temp = data[p]; //* 取出根结点存放的值 *//*
+        for (parent = p; parent * 2 <= size; parent = child) { //这个过程与删除的过程一样
             child = parent * 2;
             if ((child != size) && (data[child] < data[child + 1]))
                 child++;  //* Child指向左右子结点的较大者 *//*
-            if (X >= data[child]) break; //* 找到了合适位置 *//*
+            if (temp >= data[child]) break; //* 找到了合适位置 *//*
             else  //* 下滤X *//*
             data[parent] = data[child];
         }
-        data[parent] = X;
+        data[parent] = temp;
     }
 
-    public void buildHeap(MaxHeap maxHeap) {
-        //* 调整H->Data[]中的元素，使满足最大堆的有序性  *//*
-        //* 这里假设所有H->Size个元素已经存在H->Data[]中 *//*
+    public void buildHeap() {
+        //* 调整Data[]中的元素，使满足最大堆的有序性  *//*
+        //* 这里假设所有Size个元素已经存在Data[]中 *//*
 
         int i;
 
         //* 从最后一个结点的父节点开始，到根结点1 *//*
         for (i = this.size / 2; i > 0; i--) {
-            preDown(maxHeap, i);
+            preDown(i);
         }
     }
 }
