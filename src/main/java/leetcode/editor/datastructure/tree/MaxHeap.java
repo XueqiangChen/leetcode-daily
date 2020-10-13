@@ -2,8 +2,8 @@ package leetcode.editor.datastructure.tree;
 
 public class MaxHeap extends Heap {
 
-    public MaxHeap(int maxSize) {
-        super(maxSize);
+    public MaxHeap(int maxSize, int value) {
+        super(maxSize, value);
     }
 
     public boolean insert(int element) {

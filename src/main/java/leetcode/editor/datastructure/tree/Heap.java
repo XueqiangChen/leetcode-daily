@@ -14,18 +14,18 @@ public abstract class Heap {
         this.capacity = 0;
     }
 
-    public Heap(int[] data, int capacity) {
+    public Heap(int[] data, int capacity, int value) {
         this.data = data;
         this.size = 0;
         this.capacity = capacity;
-        this.data[0] = Integer.MAX_VALUE;
+        this.data[0] = value;
     }
 
-    public Heap(int maxSize) {
+    public Heap(int maxSize, int value) {
         this.data = new int[maxSize + 1];//最大元素从1开始
         this.size = 0;
         this.capacity = maxSize;
-        this.data[0] = Integer.MAX_VALUE;// 定义哨兵，为大于最大堆中所有可能元素的值
+        this.data[0] = value;// 定义哨兵，为大于最大堆中所有可能元素的值(或小于最小堆中的所有元素)
     }
 
     public boolean isFull() {
