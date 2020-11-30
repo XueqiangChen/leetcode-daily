@@ -42,6 +42,9 @@ import java.util.List;
 public class UniqueBinarySearchTreesIi {
     public static void main(String[] args) {
         Solution solution = new UniqueBinarySearchTreesIi().new Solution();
+
+        List<TreeNode> treeNodes = solution.generateTrees(3);
+		System.out.println(treeNodes);
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 
@@ -67,16 +70,36 @@ public class UniqueBinarySearchTreesIi {
                 return new ArrayList<>();
             }
 
-            List<TreeNode> answers = new ArrayList<>();
-            // 从1—n选择枚举出所有的数字，作为根结点，假设此时根结点的值为i，则
-            // 左子树的取值为 1~i-1,右子树的取值为i+1~n
-            // 那么，利用递归算法，每次从左右子树中取出一个值，不断做。
-            // 最后，
-
-            return null;
+            return generateTrees(1, n);
         }
 
-    }
+        private List<TreeNode> generateTrees(int start, int end) {
+
+        	if (start > end) {
+				List<TreeNode> nodes = new ArrayList<>();
+				nodes.add(null);
+				return nodes;
+			}
+
+        	List<TreeNode> treeNodes = new ArrayList<>();
+			for (int i = start; i <= end; i++) {
+				List<TreeNode> leftTrees = generateTrees(start, i-1);
+				List<TreeNode> rightTrees = generateTrees(i+1, end);
+
+				for (TreeNode left : leftTrees) {
+					for (TreeNode right : rightTrees) {
+						TreeNode treeNode = new TreeNode(i);
+						treeNode.left = left;
+						treeNode.right = right;
+						treeNodes.add(treeNode);
+					}
+				}
+
+			}
+
+			return treeNodes;
+		}
+	}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

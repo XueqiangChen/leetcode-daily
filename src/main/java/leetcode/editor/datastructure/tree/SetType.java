@@ -1,6 +1,6 @@
 package leetcode.editor.datastructure.tree;
 
-public class Set {
+public class SetType {
     // 集合程序
     /*#define MAXN 1000                  *//* 集合最大元素个数 *//*
     typedef int ElementType;           *//* 默认元素可以用非负整数表示 *//*
@@ -27,4 +27,45 @@ public class Set {
         else
             return S[X] = Find( S, S[X] ); *//* 路径压缩 *//*
     }*/
+
+
+    private int data;
+    private int parent;
+
+    public SetType(int data, int parent) {
+        this.data = data;
+        this.parent = parent;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public void setData(int data) {
+        this.data = data;
+    }
+
+    public int getParent() {
+        return parent;
+    }
+
+    public void setParent(int parent) {
+        this.parent = parent;
+    }
+
+    public int find(int x) {
+        // 在数组
+        return 0;
+    }
+
+    public int hashString(String key, int tableSize) {
+        int h = 0; //散列函数值，初始化为0
+        char[] keyArrays = key.toCharArray();
+        for (int i = 0; i <= keyArrays.length; i++) {
+            if (keyArrays[i] != '\0') {
+                h = (h << 5) + keyArrays[i];
+            }
+        }
+        return h % tableSize;
+    }
 }

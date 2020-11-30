@@ -92,7 +92,7 @@ class Node {
             node1.next = node2;
 
             // 连接相同父节点的两个子结点
-            connectTwoNode(node1.left, node2.right);
+            connectTwoNode(node1.left, node1.right);
             connectTwoNode(node2.left, node2.right);
             // 连接跨越父节点的两个子结点
             connectTwoNode(node1.right, node2.left);
